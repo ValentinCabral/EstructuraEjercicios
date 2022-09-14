@@ -153,6 +153,7 @@ public class ListaArreglo <T> implements Lista<T>{
 	public String toString(){
 	  String aux = "\n[";
 	  for(int i = 0; i < this.elementos(); i++){
+	    //Los elementos que no son el ultimo van con coma, el ultimo no
 	    if( (i + 1) < this.elementos()) {
 	      aux+= this.lista[i].toString() + ", ";
 	    }else{
@@ -166,7 +167,25 @@ public class ListaArreglo <T> implements Lista<T>{
 
 	@Override
 	public boolean equals(Object otro){
-	  return false;
+	 // Distintas clases
+	 if( otro == null || ( getClass() != otro.getClass() ) ){return false;}
+	 
+	 // No es una instancia de ListaArreglo
+	 if( !(otro instanceof ListaArreglo) ){return false;}
+	 
+	 // Hago un casteo en un auxiliar para poder acceder a los elementos
+	 ListaArreglo aux = (ListaArreglo) otro;
+	 
+	 // DIstinta cantidad de elementos
+	 if( aux.elementos() != this.elementos() ){return false;}
+	 
+	 // Comparo elemento a elemento
+	 boolean sonIguales = true;
+	 for( int i = 0; i < this.elementos(); i++ ){
+	 	sonIguales &= aux.obtener(i) == this.obtener(i);
+	 }
+	 
+	 return sonIguales;
 	}
 
 }
